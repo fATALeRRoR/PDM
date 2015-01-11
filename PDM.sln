@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.BusinessData", "Data\PDM.BusinessData.csproj", "{691FD8F2-AC47-4B41-A000-DD3F658BA025}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.BusinessLogic", "Logic\PDM.BusinessLogic.csproj", "{0E3AC0EC-4573-4E3B-8339-6B13B162EC88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.Client", "Presentation\PDM.Client.csproj", "{98DCA254-C35F-466E-8092-866D296F769E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025} = {691FD8F2-AC47-4B41-A000-DD3F658BA025}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.Domain", "PDM.Domain\PDM.Domain.csproj", "{9258A2A0-7713-49C0-B9F1-C2B875AC9A5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data layer", "Data layer", "{2D4DC2E0-2D45-4D53-AD25-4675F5AA948F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.Common", "PDM.Common\PDM.Common.csproj", "{9F2DB09F-8E35-48A5-A078-1717BF223138}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDM.Tests", "PDM.Tests\PDM.Tests.csproj", "{17A039D9-2588-4B51-A3BB-F419EE96556A}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs07
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Data\\PDM.BusinessData.csproj
+		SccProjectTopLevelParentUniqueName1 = PDM.sln
+		SccProjectName1 = Data
+		SccLocalPath1 = Data
+		SccProjectUniqueName2 = Logic\\PDM.BusinessLogic.csproj
+		SccProjectName2 = Logic
+		SccLocalPath2 = Logic
+		SccProjectUniqueName3 = Presentation\\PDM.Client.csproj
+		SccProjectName3 = Presentation
+		SccLocalPath3 = Presentation
+		SccProjectUniqueName4 = PDM.Domain\\PDM.Domain.csproj
+		SccProjectName4 = PDM.Domain
+		SccLocalPath4 = PDM.Domain
+		SccProjectUniqueName5 = PDM.Common\\PDM.Common.csproj
+		SccProjectName5 = PDM.Common
+		SccLocalPath5 = PDM.Common
+		SccProjectUniqueName6 = PDM.Tests\\PDM.Tests.csproj
+		SccProjectName6 = PDM.Tests
+		SccLocalPath6 = PDM.Tests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3AC0EC-4573-4E3B-8339-6B13B162EC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3AC0EC-4573-4E3B-8339-6B13B162EC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3AC0EC-4573-4E3B-8339-6B13B162EC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3AC0EC-4573-4E3B-8339-6B13B162EC88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DCA254-C35F-466E-8092-866D296F769E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DCA254-C35F-466E-8092-866D296F769E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DCA254-C35F-466E-8092-866D296F769E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DCA254-C35F-466E-8092-866D296F769E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9258A2A0-7713-49C0-B9F1-C2B875AC9A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9258A2A0-7713-49C0-B9F1-C2B875AC9A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9258A2A0-7713-49C0-B9F1-C2B875AC9A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9258A2A0-7713-49C0-B9F1-C2B875AC9A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F2DB09F-8E35-48A5-A078-1717BF223138}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2DB09F-8E35-48A5-A078-1717BF223138}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2DB09F-8E35-48A5-A078-1717BF223138}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2DB09F-8E35-48A5-A078-1717BF223138}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A039D9-2588-4B51-A3BB-F419EE96556A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A039D9-2588-4B51-A3BB-F419EE96556A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A039D9-2588-4B51-A3BB-F419EE96556A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A039D9-2588-4B51-A3BB-F419EE96556A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{691FD8F2-AC47-4B41-A000-DD3F658BA025} = {2D4DC2E0-2D45-4D53-AD25-4675F5AA948F}
+	EndGlobalSection
+EndGlobal

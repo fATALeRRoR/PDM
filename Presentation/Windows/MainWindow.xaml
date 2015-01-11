@@ -1,0 +1,234 @@
+﻿<businessLogic1:WindowBase x:Class="PDM.Client.Windows.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:PDM.Client.Controls" 	
+    xmlns:res="clr-namespace:PDM.Client.Resources"
+    xmlns:converters="clr-namespace:PDM.Client.Converters"
+    xmlns:businessLogic1="clr-namespace:PDM.BusinessLogic"
+    xmlns:con="clr-namespace:PDM.Client.Common"
+    Title="{x:Static res:Global.PDM}" WindowStartupLocation="Manual" WindowState="Normal" ResizeMode="CanResize" 
+	ShowInTaskbar="True" ContentRendered="MainWindow_OnContentRendered" Closed="MainWindow_OnClosed"
+    MinHeight="600" MinWidth="800"  Closing="MainWindow_OnClosing"
+    >
+    <Window.Resources>
+        <converters:DocumentTooltipConverter x:Key="DocumentTooltipConverter"/>
+
+        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="searchResults_MouseDoubleClick" />
+            <Setter Property="ToolTip" Value="{Binding Converter={StaticResource DocumentTooltipConverter}, Mode=OneWay}" />
+        </Style>
+
+        <DataTemplate x:Key="HeaderTemplateSort" >
+            <Grid  x:Name="HeaderTemplateSortAscGrid">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width ="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column ="0"  HorizontalAlignment="Center" 
+						   VerticalAlignment ="Center"
+						   x:Name ="HeaderText" 
+						   TextTrimming="CharacterEllipsis" TextWrapping ="Wrap" 
+						   Text="{Binding}" ToolTipService.ToolTip ="{Binding}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateSortAsc" >
+            <Grid  x:Name="HeaderTemplateSortAscGrid">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width ="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column ="0"  HorizontalAlignment="Center" 
+						   VerticalAlignment ="Center"
+						   x:Name ="HeaderText" 
+						   TextTrimming="CharacterEllipsis" TextWrapping ="Wrap" 
+						   Text="{Binding}" ToolTipService.ToolTip ="{Binding}" />
+                <Path x:Name="arrow"
+				   Grid.Column ="1"
+					Opacity ="0.7"
+				   Fill ="{Binding ElementName=HeaderText, Path= Foreground}"
+				   VerticalAlignment ="Center"
+				   StrokeThickness = "1"
+				   Data            = "M 5,10 L 15,10 L 10,5 L 5,10">
+                </Path>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateSortDesc">
+            <Grid >
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width ="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column ="0"  HorizontalAlignment="Center"
+						   VerticalAlignment ="Center"
+							x:Name ="HeaderText"
+						   TextTrimming="CharacterEllipsis" TextWrapping ="Wrap"
+						   Text="{Binding }" ToolTipService.ToolTip ="{Binding}"/>
+                <Path x:Name="arrow"
+					  Grid.Column ="1"
+					  VerticalAlignment ="Center"                      
+					  StrokeThickness = "1"
+					  Opacity ="0.7" 
+					   Fill ="{Binding ElementName=HeaderText, Path= Foreground}" 
+					  Data            = "M 5,5 L 10,10 L 15,5 L 5,5">
+                </Path>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="ImageButtonStyle" TargetType="Image">
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="48"/>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".5" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="5, 0, 5, 0">        
+        <Grid.RowDefinitions>
+            <!--ToolBar -->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
+            <!--Filter box -->
+            <RowDefinition Height="Auto" />           
+            <RowDefinition Height="5" />
+            <!--List-->
+            <RowDefinition Height="*" />            
+            <RowDefinition Height="0" />
+            <!--Status bar-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ToolBar Grid.Row="0" Grid.Column="0" ToolBar.OverflowMode="Never">
+            <Button Command="{Binding NewCommand}">
+                <Image Source="{StaticResource AddIcon}" Style="{StaticResource ImageButtonStyle}"/>
+            </Button>
+            <Button Command="{Binding ViewCommand}">
+                <Image Source="{StaticResource ViewIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding EditCommand}">
+                <Image Source="{StaticResource EditIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding DeleteCommand}" >
+                <Image Source="{StaticResource DeleteIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding SendEmailCommand}">
+                <Image Source="{StaticResource SendIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding PrintCommand}">
+                <Image Source="{StaticResource PrintIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding ClearFilterCommand}">
+                <Image Source="{StaticResource ClearFilterIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Separator></Separator>
+            <Button Command="{Binding SettingsCommand}">
+                <Image Source="{StaticResource SettingsIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+            <Button Command="{Binding AboutCommand}">
+                <Image Source="{StaticResource AboutIcon}" Style="{StaticResource ImageButtonStyle}" />
+            </Button>
+        </ToolBar>
+
+        <TextBox Grid.Row="2" Grid.Column="0"  Name="filterTextBox" TextChanged="filterTextBox_TextChanged" KeyUp="filterTextBox_KeyUp" />
+
+        <!-- Improves scrolling performance even further, but you need to turn it on explicitly. 
+        To do so, you set the VirtualizingStackPanel.VirtualizationMode attached property to Recycling-->
+        <ListView Grid.Row="4" Grid.Column="0" Name="listView" IsSynchronizedWithCurrentItem="True"
+				  ItemsSource="{Binding Documents, Mode=OneWay}" 
+				  VirtualizingStackPanel.IsVirtualizing="True"  
+                  VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                  GridViewColumnHeader.Click="OnColumnHeaderClick"                   
+				  ItemContainerStyle="{StaticResource ListViewItemStyle}" 
+                  SelectedItem="{Binding SelectedDocument, Mode=TwoWay}" 
+                  KeyUp="ListView_OnKeyUp"
+                  SelectionMode="Extended"
+                  PreviewMouseLeftButtonDown="FileView_PreviewMouseLeftButtonDown" MouseMove="FileView_MouseMove"
+				  >
+            <ListView.View>
+                <controls:AGrdiView AllowsColumnReorder="True" x:Name="GridView">
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.FileNameExtensionProperty}" Width="30" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path=Icon, Mode=OneWay}" Stretch="Uniform" StretchDirection="Both">
+                                    <Image.ToolTip>
+                                        <!-- http://wpf.2000things.com/2013/07/16/864-changing-the-look-of-a-tooltip-with-a-control-template/ -->
+                                        <ToolTip>
+                                            <ToolTip.Template>
+                                                <ControlTemplate TargetType="ToolTip">
+                                                    <Image Source="{Binding Path=Icon, Mode=OneWay}" 
+                                                   UseLayoutRounding="True" RenderOptions.BitmapScalingMode="HighQuality" Stretch="Uniform" />
+                                                </ControlTemplate>
+                                            </ToolTip.Template>
+                                        </ToolTip>
+                                    </Image.ToolTip>
+                                </Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </controls:AGridViewColumn>
+
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.FileNameProperty}" DisplayMemberBinding="{Binding Path=FileName, Mode=OneWay}" Header="File name" Width="130"/>                    
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.DateProperty}" DisplayMemberBinding="{Binding Path=DateString, Mode=OneWay}" Header="Date" Width="100" />
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.DescriptionProperty}" DisplayMemberBinding="{Binding Path=Description, Mode=OneWay}" Header="Description" Width="140" />
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.ProjectProperty}" DisplayMemberBinding="{Binding Path=Project, Mode=OneWay}" Header="Project" Width="140" />
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.OwnerProperty}" DisplayMemberBinding="{Binding Path=Owner, Mode=OneWay}" Header="Owner" Width="140" />
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.KeywordsProperty}" DisplayMemberBinding="{Binding Path=KeywordsString, Mode=OneWay}" Header="Keywords" Width="200" />
+                    <controls:AGridViewColumn SortPropertyName="{x:Static con:Constants.FolderPathProperty}" DisplayMemberBinding="{Binding Path=FolderPath, Mode=OneWay}" Header="Folder path" Width="150" />
+                </controls:AGrdiView>
+            </ListView.View>
+        </ListView>
+
+        <WrapPanel Grid.Row="6" Orientation="Horizontal" x:Name="ShotcutsPanel" HorizontalAlignment="Stretch">
+        </WrapPanel>
+        
+        <StatusBar Grid.Row="7" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" >
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />                            
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="160" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem Grid.Row="1" Grid.Column="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ShownDocumentsCount, Mode=OneWay}" />
+                    <TextBlock Text=" of " />
+                    <TextBlock Text="{Binding DocumentsTotalCount, Mode=OneWay}" />
+                    <TextBlock Text=" documents" />
+                </StackPanel>
+            </StatusBarItem>
+ 
+            <Separator Grid.Row="1" Grid.Column="1" />
+
+            <StatusBarItem Grid.Row="1" Grid.Column="2">
+                <TextBlock Text="{Binding StatusBarMessage, Mode=OneWay}" />
+            </StatusBarItem>
+
+            <Separator Grid.Row="1" Grid.Column="3" />
+
+            <StatusBarItem Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center">
+                <ProgressBar Orientation="Horizontal" Width="150" Height="13" 
+                             HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" 
+                             IsIndeterminate="{Binding IsInProgress, Mode=OneWay}" /> 
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</businessLogic1:WindowBase>
